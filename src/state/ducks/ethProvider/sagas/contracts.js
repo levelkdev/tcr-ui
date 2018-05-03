@@ -49,7 +49,7 @@ export function* registrySaga(action) {
     const account = yield select(selectAccount)
 
     const ethjs = yield call(getEthjs)
-    const networkID = yield call(ethjs.net_version)
+    const networkID = '*'
 
     // if action.payload.address, use that address (CHOOSE_TCR)
     // otherwise, use the default address (factory tcr)

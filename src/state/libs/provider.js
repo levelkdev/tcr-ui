@@ -29,14 +29,17 @@ let ethjs = undefined
 // prefer metamask provider
 // return local rpc otherwise
 function setProvider() {
-  if (
-    typeof window.web3 !== 'undefined' &&
-    typeof window.web3.currentProvider !== 'undefined'
-  ) {
-    // metamask
-    return window.web3.currentProvider
-  }
-  // ganache-cli
+  console.log('setProvider!!')
+  // if (
+  //   typeof window.web3 !== 'undefined' &&
+  //   typeof window.web3.currentProvider !== 'undefined'
+  // ) {
+  //   // metamask
+  //   console.log('if!', window.web3.currentProvider)
+  //   return window.web3.currentProvider
+  // }
+  // // ganache-cli
+  // console.log('else!!')
   return new Ethjs.HttpProvider(`http://localhost:8545`)
 }
 
@@ -45,7 +48,9 @@ function setEthjs() {
   // metamask or ganache-cli
   const provider = setProvider()
   // set global
+  console.log('provider :', provider)
   ethjs = new Ethjs(provider)
+  console.log('ethjs: ', ethjs)
   return ethjs
 }
 
