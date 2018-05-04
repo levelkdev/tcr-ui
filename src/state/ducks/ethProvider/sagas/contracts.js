@@ -5,7 +5,7 @@ import { selectABIs, selectAccount } from 'state/ducks/home/selectors'
 import * as actions from '../actions'
 import * as types from '../types'
 import * as homeTypes from 'state/ducks/home/types'
-
+import tcr from 'sol-tcr'
 import { getEthjs } from 'state/libs/provider'
 import { ipfsGetData } from 'state/libs/ipfs'
 import { baseToConvertedUnit } from 'state/libs/units'
@@ -22,18 +22,19 @@ export default function* contractsSagasRoot() {
 function* abisSaga() {
   try {
     // get abis from ipfs
-    const data = yield call(ipfsGetData, 'QmQreb8xP7JBqgvDP5o4WHNnFneoXmiHcBnS6Vf7W98PS5')
-    const { id, registry, token, voting, parameterizer } = data
+    const data = tcr
+    console.log('!!! ', data.Registry)
+    const { Registry, EIP20, PLCRVoting, Parameterizer } = data
     const abis = {
-      id,
+      id: 'Prospect Park',
       registry: {
-        abi: registry.abi,
-        bytecode: registry.bytecode,
-        networks: registry.networks,
+        abi: Registry.abi,
+        bytecode: Registry.bytecode,
+        networks: Registry.networks,
       },
-      token: { abi: token.abi, bytecode: token.bytecode },
-      voting: { abi: voting.abi, bytecode: voting.bytecode },
-      parameterizer: { abi: parameterizer.abi, bytecode: parameterizer.bytecode },
+      token: { abi: EIP20.abi, bytecode: EIP20.bytecode },
+      voting: { abi: PLCRVoting.abi, bytecode: PLCRVoting.bytecode },
+      parameterizer: { abi: Parameterizer.abi, bytecode: Parameterizer.bytecode },
     }
 
     // dispatch abis -> invokes contractSagas
@@ -53,7 +54,7 @@ export function* registrySaga(action) {
 
     // if action.payload.address, use that address (CHOOSE_TCR)
     // otherwise, use the default address (factory tcr)
-    let { address } = action.payload || abis.registry.networks[networkID]
+    let address = '0x320051bbd4eee344bb86f0a858d03595837463ef' //action.payload || abis.registry.networks[networkID]
 
     const registry = yield call(
       setupRegistry,

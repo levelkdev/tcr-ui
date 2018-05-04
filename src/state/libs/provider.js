@@ -29,7 +29,7 @@ let ethjs = undefined
 // prefer metamask provider
 // return local rpc otherwise
 function setProvider() {
-  console.log('setProvider!!')
+  // console.log('setProvider!!')
   // if (
   //   typeof window.web3 !== 'undefined' &&
   //   typeof window.web3.currentProvider !== 'undefined'
