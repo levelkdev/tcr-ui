@@ -54,6 +54,7 @@ export default ({
         <Button onClick={handleChallenge} mode="strong" wide>
           {'CHALLENGE'}
         </Button>
+
         {miningStatus && (
           <div>
             <Button
@@ -65,6 +66,19 @@ export default ({
           </div>
         )}
       </MarginDiv>
+
+      <Button onClick={handleChallenge} mode="strong" wide>
+        {'YES'}
+      </Button>
+
+      <Button
+        style={{ marginLeft: 90 + 'px' }}
+        onClick={handleChallenge}
+        mode="strong"
+        wide
+      >
+        {'NO'}
+      </Button>
     </SidePanel>
   </div>
 )
